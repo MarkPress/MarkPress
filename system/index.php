@@ -13,7 +13,9 @@ $that->settings->markdown = 'gfm';
 use Symfony\Component\Yaml\Yaml;
 $settings = Yaml::parse(file_get_contents('settings.yaml'));
 $that->settings = (object) array_merge((array)$that->settings, (array)$settings);
-
+if(!empty($that->settings->timezone)) {
+    date_default_timezone_set($that->settings->timezone);
+}
 $subfolder = (in_array($_SERVER['HTTP_HOST'], array('localhost', '127.0.0.1'))) ? $that->settings->root : null;
 $that->uri = new URI($subfolder);
 
