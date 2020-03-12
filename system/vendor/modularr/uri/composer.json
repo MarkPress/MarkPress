@@ -1,0 +1,11 @@
+{
+    "name": "modularr/uri",
+    "type": "library",
+    "description": "Single Responisibilty Uri Library",
+    "keywords": ["uri","url","helper","library"],
+    "license": "MIT",
+    "autoload": {
+        "classmap": ["src/", "src/URI.php"],
+        "psr-0": {"": "src"}
+    }
+}
