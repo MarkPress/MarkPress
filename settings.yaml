@@ -1,10 +1,10 @@
 root: /
-base: http://site.com/
-homepage: blog
+base: https://site.com/
+homepage: index
 sitename:
 description:
 
 hljs: zenburn
-theme: cleanblog
+theme: default
 markdown: mfm
 content: posts

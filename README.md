@@ -1,29 +1,41 @@
 # MarkPress
 
-An easy to use **Markdown File CMS**.
+A PHP based **Markdown File CMS**.
 
-# Quick Documentation:
+Markpress is a dynamic Markdown blogging CMS. Like Jekyll but dynamic website instead of a generated website. It is largely configuration based, which means: no admin panel, no installers.
 
-## Quick How to:
+#### Batteries not Included
 
-### Install:
-- Copy the Files into **public_html**
+This is basically the clean repo. Like an empty framework shell, with a few defaults to get most people started, without having to "figure out", how everything works.
 
+You should just be able to fork the repo. And get started from there.
 
-### Gotcha's:
-- All themes are stored in **themes**
-- There is no Admin Panel
-    - manage your content using MarkDown Files
-- All the content is stored in **posts** by default
-    - Use subfolders for blog type posts (/blog/post)
-    - Use the main folder for pages
-    - Folder Structure:
-        - /file
-            - posts/file.md
-        - /blog
-            - posts/blog/
-        - /blog/one
-            - posts/blog/one.md
+> There is code that will automatically look for ports and provide a base with the correct ports automatically before the CSS and JS variables. Although you may still have to "configure" correctly the base setting if you want the hrefs to accurate.
+
+### Quick Start
+
+- Define the settings in **settings.yaml**
+    - Point to root directory: `root: /`
+    - Point to a content directory: `content: posts`
+    - Point to a Theme folder: `theme: cleanblog`
+    - Set the Markdown Parser: `markdown: mfm`
+    - Set the homepage dir/file: `homepage: blog`
+        - Make sure that the folder exists if you pick a directory as your homepage.
+    - Set the Base Directory: `base: http://localhost/`
+- Routing is automatic single directory* **/blog/post** and **/post**
+    - Routes to /blog/post.md and /post.md respectively
+- Twig Templates, Theme basics
+    - Template shown when pointing to a directory: **show_news.tpl**
+    - Template shown when pointing to a document: **show_post.tpl**
+    - See https://github.com/MarkPress/Themes for examples
+
+Most of the default configurations can be used as-is. Although you might want to change the theme.
+
+Themes can be found at [Here](https://github.com/MarkPress/Themes).
+
+---
+
+# Documentation:
 
 ## Basic Usage:
 
@@ -42,8 +54,8 @@ A page or Post uses [Yaml FrontMatter](https://github.com/Modularr/YAML-FrontMat
     
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-## The Power of Templates:
-We make use of the amazing Twig template engine. Which makes it easy for designers to build cool designs as easy as possible with MarkPress.
+## Templates Example:
+MarkPress uses the amazing [Twig template engine](https://twig.symfony.com/doc/3.x/)
 
 ### themes/{theme_name}/show_news.tpl:
 

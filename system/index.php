@@ -16,7 +16,9 @@ $that->settings = (object) array_merge((array)$that->settings, (array)$settings)
 if(!empty($that->settings->timezone)) {
     date_default_timezone_set($that->settings->timezone);
 }
-$subfolder = (in_array($_SERVER['HTTP_HOST'], array('localhost', '127.0.0.1'))) ? $that->settings->root : null;
+
+$subfolder = null;
+$subfolder = ($that->settings->root != '/') ? $that->settings->root : $subfolder;
 $that->uri = new URI($subfolder);
 
 $path = $that->settings->content.'/'.$that->uri->segment(1, $that->settings->homepage);
@@ -32,15 +34,10 @@ if(file_exists($file)) {
 } else {
     if(is_dir($path)) {
         $template = 'themes/'.$that->settings->theme.'/show_news.tpl';
-        echo show_news($path, $template);
+        echo show_news($path, $template, $data);
     } else {
         $data = array();
-        $data['pages']    = $that->pages;
-        $data['settings'] = $that->settings;
-        $data['base']     = 'http://'.$_SERVER['SERVER_NAME'].$that->settings->root;
-        $data['theme']    = $data['base'].'/themes/'.$that->settings->theme;
-        $data['css']      = $data['theme'].'/css';
-        $data['js']       = $data['theme'].'/js';
+        $data = setData($data);
         echo view('themes/'.$that->settings->theme.'/404.tpl', $data);
     }
 }
