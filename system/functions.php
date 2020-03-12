@@ -52,6 +52,9 @@ function parse_file($file, $template)
     $page->data['content'] = MarkDown($page->data['content'], $markdown);
     $data = $page->data;
 
+    $data['post']     = $page->data;
+    $data['pages']    = $that->pages;
+    $data['settings'] = $that->settings;
     $data['base']  = 'http://'.$_SERVER['SERVER_NAME'].$that->settings->root;
     $data['theme'] = $data['base'].'/themes/'.$that->settings->theme;
     $data['css']   = $data['theme'].'/css';
@@ -68,7 +71,7 @@ function show_news($folder='posts',$template='templates/show_news.tpl')
     {
         $page  = new FrontMatter($file);
         if($page->data['route'] == '') {
-            $route = $that->uri->segment(1,'').'/'.substr($file, strlen($folder)+1, -3);
+            $route = $that->uri->segment(1, $that->settings->homepage).'/'.substr($file, strlen($folder)+1, -3);
         } else {
             $route = $page->data['route'];
         }
@@ -87,6 +90,10 @@ function show_news($folder='posts',$template='templates/show_news.tpl')
     $data = array_reverse($data);
 
     $data['posts'] = $data;
+    $data['pages'] = $that->pages;
+    $data['settings'] = $that->settings;
+    $data['uri']   = substr($that->uri->uri_string,1);
+    $data['uri']   = $that->path;
     $data['base']  = 'http://'.$_SERVER['SERVER_NAME'].$that->settings->root;
     $data['theme'] = $data['base'].'/themes/'.$that->settings->theme;
     $data['css']   = $data['theme'].'/css';

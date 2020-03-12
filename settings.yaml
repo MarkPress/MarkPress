@@ -1,0 +1,10 @@
+root: /
+base: http://site.com/
+homepage: blog
+sitename:
+description:
+
+hljs: zenburn
+theme: cleanblog
+markdown: mfm
+content: posts
