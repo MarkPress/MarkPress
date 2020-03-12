@@ -1,8 +1,8 @@
 root: /
 base: http://site.com/
 homepage: blog
-sitename:
-description:
+sitename: 
+description: 
 
 hljs: zenburn
 theme: cleanblog
