@@ -6,9 +6,7 @@ Markpress is a dynamic Markdown blogging CMS. Like Jekyll but dynamic website in
 
 #### Batteries not Included
 
-This is basically the clean repo. Like an empty framework shell, with a few defaults to get most people started, without having to "figure out", how everything works.
-
-You should just be able to fork the repo. And get started from there.
+This is basically the clean repo. Like an empty framework shell, with a few defaults to get most people started. You should just be able to fork the repo. And get started from there.
 
 > There is code that will automatically look for ports and provide a base with the correct ports automatically before the CSS and JS variables. Although you may still have to "configure" correctly the base setting if you want the hrefs to accurate.
 
