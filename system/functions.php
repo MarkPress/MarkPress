@@ -1,6 +1,26 @@
 <?php
 use Ciconia\Extension\Gfm;
 
+function str_remove($str, $content) {
+    return str_replace($str, '', $content);
+}
+function is_dir_path($path) {
+    $last_character = $path[strlen($path)-1];
+    # return $last_character;
+    return ($last_character == '/') ? true : false;
+}
+function remove_trailing($path) {
+    $last_character = $path[strlen($path)-1];
+    if($last_character == '/') {
+        return substr($path, 0, -1);
+    } else {
+        return $path;
+    }
+}
+function trailing($input='') {
+    return $input.'/';
+}
+
 function to_obj($input) {
     return json_decode(json_encode($input));
 }
