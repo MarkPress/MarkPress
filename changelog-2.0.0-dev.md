@@ -36,7 +36,13 @@
 - Theme Sidebar Navigation
 - Theme Breadcrumbs Navigation
 
-#### Infobox Example Format
+### Infobox
+
+#### Preview 
+
+[![](infobox-preview.png)](infobox-preview.png "Click to View")
+
+#### Infobox Example (Format)
 
     ---
     title: Castiel (Supernatural)

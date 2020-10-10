@@ -1,12 +1,20 @@
 # MarkPress
 
+
+> Note: This is currently a development branch, which may include bugs and inconsistencies and significant changes may occur, we recommend downloading a release zip, instead of a master branch zip.
+
 A PHP based **Markdown File CMS**.
 
-Markpress is a dynamic Markdown blogging CMS. Like Jekyll but dynamic website instead of a generated website. It is largely configuration based, which means: no admin panel, no installers.
+MarkPress is a PHP blogging CMS, it is configurated similar to static website generators. The output is dynamic so the content changes are visible immediately.
 
 #### Batteries not Included
 
-This is basically the clean repo. Like an empty framework shell, with a few defaults to get most people started. You should just be able to fork the repo. And get started from there.
+- This is a Feature, Not a Bug...
+- No Installer, just copy/paste
+- No admin panel included!
+- Configuration, Theming, Post Configuration, is all manual
+
+This is basically an empty framework shell, with a few defaults to get most people started. You should just be able to fork the repo. And get started from there.
 
 > There is code that will automatically look for ports and provide a base with the correct ports automatically before the CSS and JS variables. Although you may still have to "configure" correctly the base setting if you want the hrefs to accurate.
 
@@ -20,8 +28,8 @@ This is basically the clean repo. Like an empty framework shell, with a few defa
     - Set the homepage dir/file: `homepage: blog`
         - Make sure that the folder exists if you pick a directory as your homepage.
     - Set the Base Directory: `base: http://localhost/`
-- Routing is automatic single directory* **/blog/post** and **/post**
-    - Routes to /blog/post.md and /post.md respectively
+- <s>Routing is automatic single directory* **/blog/post** and **/post**</s>
+    - <s>Routes to /blog/post.md and /post.md respectively</s>
 - Twig Templates, Theme basics
     - Template shown when pointing to a directory: **show_news.tpl**
     - Template shown when pointing to a document: **show_post.tpl**
