@@ -56,6 +56,13 @@ class ComposerStaticInite7f814217895cca6af1f8429306e4cf2
                 0 => __DIR__ . '/..' . '/symfony/console',
             ),
         ),
+        'P' => 
+        array (
+            'Parsedown' => 
+            array (
+                0 => __DIR__ . '/..' . '/erusev/parsedown',
+            ),
+        ),
     );
 
     public static $fallbackDirsPsr0 = array (

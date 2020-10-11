@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>{% block title %}{% endblock %}</title> <!-- --
+        <title>{% block title %}{% endblock %}</title><!-- -->
         <base href="{{ base }}/"> <!-- --
         <link rel="shortcut icon" href="{{theme}}/static/img/favicon.ico"> <!-- -->
         <link rel="stylesheet" href="{{theme}}/static/css/bootstrap.min.css"> <!-- -->

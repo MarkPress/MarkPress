@@ -1,5 +1,8 @@
 <?php
-use Ciconia\Extension\Gfm;
+class Config {
+    public $pages;
+    public $settings;
+}
 
 function str_remove($str, $content) {
     return str_replace($str, '', $content);
@@ -26,15 +29,15 @@ function to_obj($input) {
 }
 
 function FolderName($input) {
-
+    
     if( $input[0] == '/' ) {
         $input = substr($input, 1);
     }
-
+    
     if( substr($input, -1) == '/' ) {
         $input = substr($input, 0, -1);
     }
-
+    
     return $input;
 }
 
@@ -46,7 +49,7 @@ function AddPort($port) {
     }
 }
 
-function server_url($root='') {
+function server_url($root='', $use_port=false) {
     $server_name = $_SERVER['SERVER_NAME'];
     $port = (!empty($_SERVER['SERVER_PORT']) ? $_SERVER['SERVER_PORT']: '');
     if (!empty($_SERVER['HTTPS']) && (strtolower($_SERVER['HTTPS']) == 'on' || $_SERVER['HTTPS'] == '1')) {
@@ -54,7 +57,8 @@ function server_url($root='') {
     } else {
         $scheme = 'http';
     }
-    return $scheme.'://'.$server_name.AddPort($port).'/'.$root;
+    $port = ($use_port) ? AddPort($port) : '';
+    return $scheme.'://'.$server_name.$port.'/'.$root;
 }
 
 function debug($data,$return=false) {
@@ -65,38 +69,25 @@ function debug($data,$return=false) {
 }
 
 function MarkDown($input,$type=false) {
-    $ciconia = new \Ciconia\Ciconia();
-    if(strtolower($type) == 'mfm') {
-        $ciconia->addExtension(new Gfm\FencedCodeBlockExtension());
-        $ciconia->addExtension(new Gfm\TaskListExtension());
-        $ciconia->addExtension(new Gfm\InlineStyleExtension());
-        $ciconia->addExtension(new Gfm\WhiteSpaceExtension());
-        $ciconia->addExtension(new Gfm\TableExtension());
-    }
-    if(strtolower($type) == 'gfm') {
-        $ciconia->addExtension(new Gfm\FencedCodeBlockExtension());
-        $ciconia->addExtension(new Gfm\TaskListExtension());
-        $ciconia->addExtension(new Gfm\InlineStyleExtension());
-        $ciconia->addExtension(new Gfm\WhiteSpaceExtension());
-        $ciconia->addExtension(new Gfm\TableExtension());
-        $ciconia->addExtension(new Gfm\UrlAutoLinkExtension());
-    }
-    $content = $ciconia->render($input);
+    $Parsedown = new Parsedown();
+    $content = $Parsedown->text($input);
     return $content;
 }
+
 function view($template,$data,$settings=array('autoescape'=>false,'debug'=>false)) {
     $loader = new Twig_Loader_Filesystem('./');
     $twig = new Twig_Environment($loader, $settings);
     $twig->addFunction(new Twig_SimpleFunction('file_exists', 'file_exists'));
-
-    return $twig->render($template, $data);
+    $template = $twig->render($template, $data);
+    
+    return $template;
 }
 
 function parse_file($file, $template) {
     global $that;
 
     $page = new FrontMatter($file);
-    $markdown = ($that->settings->markdown) ? $that->settings->markdown : false;
+    $markdown = ($that['settings']['markdown']) ? $that['settings']['markdown'] : false;
     $page->data['content'] = MarkDown($page->data['content'], $markdown);
     $data = $page->data;
 
@@ -112,11 +103,11 @@ function show_news($folder='posts',$template='templates/show_news.tpl') {
     foreach($files as $file) {
         $page  = new FrontMatter($file);
         if($page->data['route'] == '') {
-            $route = $that->uri->segment(1, $that->settings->homepage).'/'.substr($file, strlen($folder)+1, -3);
+            $route = $that['uri']->segment(1, $that['settings']->homepage).'/'.substr($file, strlen($folder)+1, -3);
         } else {
             $route = $page->data['route'];
         }
-        $markdown = ($that->settings->markdown) ? $that->settings->markdown : false;
+        $markdown = ($that['settings']['markdown']) ? $that['settings']['markdown'] : false;
         $page->data['content'] = MarkDown($page->data['content'], $markdown);
         $page->data['route'] = $route;
         $data[] = $page->data;
@@ -130,18 +121,18 @@ function show_news($folder='posts',$template='templates/show_news.tpl') {
     $data = array_reverse($data);
 
     $data['posts']    = $data;
-    $data['uri']      = substr($that->uri->uri_string,1);
-    $data['uri']      = $that->path;
+    $data['uri']      = substr($that['uri']->uri_string,1);
+    $data['uri']      = $that['path'];
     $data = setData($data);
     echo view($template, $data);
 }
 
 function setData($data) {
     global $that;
-    $data['pages']    = $that->pages;
-    $data['settings'] = $that->settings;
-    $data['base']     = server_url(FolderName($that->settings->root));
-    $data['theme']    = $data['base'].'/themes/'.$that->settings->theme;
+    $data['pages']    = $that['pages'];
+    $data['settings'] = $that['settings'];
+    $data['base']     = server_url(FolderName($that['settings']['root']));
+    $data['theme']    = $data['base'].'/themes/'.$that['settings']['theme'];
     $data['css']      = $data['theme'].'/css';
     $data['js']       = $data['theme'].'/js';
     return $data;
